@@ -36,6 +36,8 @@ class Window(arcade.Window):
         self.player.walk_left = []
         self.player.run_right = []
         self.player.run_left = []
+        self.player.dead_right = []
+        self.player.dead_left = []
 
         self.player.stand_right.append(arcade.load_texture('images/stand/0.png', scale=SCALE))
         self.player.stand_left.append(arcade.load_texture('images/stand/0.png', scale=SCALE, mirrored=True))
@@ -47,6 +49,8 @@ class Window(arcade.Window):
         for i in range(8):
             self.player.run_right.append(arcade.load_texture('images/run/' + str(i) + '.png', scale=SCALE))
             self.player.run_left.append(arcade.load_texture('images/run/' + str(i) + '.png', scale=SCALE, mirrored=True))
+            self.player.dead_right.append(arcade.load_texture('images/die/' + str(i) + '.png', scale=SCALE))
+            self.player.dead_left.append(arcade.load_texture('images/die/' + str(i) + '.png', scale=SCALE, mirrored=True))
 
         self.player.delta_distance = 20
         self.player.center_x = WIDTH//2
@@ -68,6 +72,8 @@ class Window(arcade.Window):
         if key == LEFT and mods == arcade.key.MOD_SHIFT:
             self.player.change_x = -SPEED * 1.5
             self.player.run = True
+        if key == arcade.key.A:
+            self.player.dead = True
 
     def on_key_release(self, key, mods):
         if key == RIGHT or key == LEFT:
@@ -75,6 +81,8 @@ class Window(arcade.Window):
             self.player.run = False
         if mods == arcade.key.MOD_SHIFT:
             self.player.run = False
+        # if key == arcade.key.A:
+        #     self.dead = False
 
 def main():
     window = Window(WIDTH, HEIGHT)
