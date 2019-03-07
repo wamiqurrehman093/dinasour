@@ -38,6 +38,8 @@ class Window(arcade.Window):
         self.player.run_left = []
         self.player.dead_right = []
         self.player.dead_left = []
+        self.player.jump_right = []
+        self.player.jump_left = []
 
         self.player.stand_right.append(arcade.load_texture('images/stand/0.png', scale=SCALE))
         self.player.stand_left.append(arcade.load_texture('images/stand/0.png', scale=SCALE, mirrored=True))
@@ -45,6 +47,10 @@ class Window(arcade.Window):
         for i in range(10):
             self.player.walk_right.append(arcade.load_texture('images/walk/' + str(i) + '.png', scale=SCALE))
             self.player.walk_left.append(arcade.load_texture('images/walk/' + str(i) + '.png', scale=SCALE, mirrored=True))
+
+        for i in range(12):
+            self.player.jump_right.append(arcade.load_texture('images/jump/' + str(i) + '.png', scale=SCALE))
+            self.player.jump_left.append(arcade.load_texture('images/jump/' + str(i) + '.png', scale=SCALE, mirrored=True))
 
         for i in range(8):
             self.player.run_right.append(arcade.load_texture('images/run/' + str(i) + '.png', scale=SCALE))
@@ -56,7 +62,8 @@ class Window(arcade.Window):
         self.player.center_x = WIDTH//2
         self.player.center_y = HEIGHT//2
         self.player.scale = SCALE
-
+        self.player.speed = SPEED
+        self.player.gravity_constant = 0.9
     def update(self, delta_time):
         self.player.update()
         self.player.update_animation()
@@ -74,15 +81,17 @@ class Window(arcade.Window):
             self.player.run = True
         if key == arcade.key.A:
             self.player.dead = True
-
+        if key == arcade.key.SPACE:
+            self.player.jump = True
+            self.player.change_y = SPEED
+            self.player.start_center_y = self.player.center_y
     def on_key_release(self, key, mods):
         if key == RIGHT or key == LEFT:
             self.player.change_x = 0
             self.player.run = False
+            self.player.cur_index = 0
         if mods == arcade.key.MOD_SHIFT:
             self.player.run = False
-        # if key == arcade.key.A:
-        #     self.dead = False
 
 def main():
     window = Window(WIDTH, HEIGHT)
