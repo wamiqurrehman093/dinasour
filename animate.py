@@ -1,18 +1,5 @@
-import arcade
-import os
-import math
-from fighter import *
-
-WIDTH = 800
-HEIGHT = 600
-
-SCALE = 0.5
-SPEED = 5
-
-BLUE = arcade.color.ALICE_BLUE
-
-LEFT = arcade.key.LEFT
-RIGHT = arcade.key.RIGHT
+from variables import *
+from fighter import Fighter
 
 class Window(arcade.Window):
     def __init__(self, width, height):

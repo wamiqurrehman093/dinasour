@@ -1,11 +1,4 @@
-import arcade
-import os
-import math
-
-FACE_RIGHT = 1
-FACE_LEFT = 2
-FACE_UP = 3
-FACE_DOWN = 4
+from variables import *
 
 class Fighter(arcade.Sprite):
     def __init__(self, scale: float=1,
@@ -51,7 +44,8 @@ class Fighter(arcade.Sprite):
     def jump_animation(self):
         if self.center_y < self.start_center_y:
             self.center_y = self.start_center_y
-            
+
+
         x1 = self.center_x
         x2 = self.prev_center_x
         y1 = self.center_y
